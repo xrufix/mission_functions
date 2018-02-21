@@ -26,7 +26,7 @@ GVAR(impactBlur) ppEffectForceInNVG true;
 GVAR(impactBlur) ppEffectCommit 0;
 
 #ifdef DEBUG_MODE
-	player addAction["Effect",{[10,5] call xru_suppress_fnc_effect},nil,1.5,true,true,"defaultAction"];
+	player addAction["Effect",{[10, 2, 5] call xru_suppress_fnc_effect},nil,1.5,true,true,"defaultAction"];
 #endif
 
 ADDON = true;

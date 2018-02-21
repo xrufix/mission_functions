@@ -2,7 +2,7 @@
 
 GVAR(bullets) = GVAR(bullets) select {
 	_x params ["_bullet","_hit","_radius"];
-	private _distance = player distance _bullet;
+	private _distance = _bullet distance ((position player) vectorAdd (player selectionPosition "head"));
 	switch true do {
 		case (!alive _bullet) : {			// Remove bullets which are no longer present.
 			false
