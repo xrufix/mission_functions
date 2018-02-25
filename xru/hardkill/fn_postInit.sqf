@@ -1,6 +1,6 @@
 /*
  * Author: xrufix
- * Adds actions to commander to enable or disable the hardkill system, shows the current state of it when on commander position.
+ * Adds actions to commander to enable or disable the hardkill system, show the current state of it when on commander position.
  *
  * Arguments:
  * NONE
@@ -15,19 +15,44 @@
  */
 #include "script_component.hpp"
 
-["MBT_01_base_F", "init", {
+[QGVAR(enablePFH), {
+	[{_this call FUNC(PFH)}, 0, _this] call CBA_fnc_addPerFrameHandler; 
+}] call CBA_fnc_addEventHandler;
 
-	params ["_tank"];
+private _rootAction = [QGVAR(root), "Hardkill System", "", {}, {
+	params ["_target", "_player", ""];
+	true //(_player == commander _target)
+}] call ace_interact_menu_fnc_createAction;
 
-	_tank addAction ["Enable Hardkill protection", {
-		params ["_target","","_id",""];
-		_target setVariable [QGVAR(enabled), true, true];
-		[{_this call FUNC(PFH)}, 0, [_target]] call CBA_fnc_addPerFrameHandler;
-	}, nil, 1.5, false, true, "", QUOTE( !(_target getVariable [ARR_2(QQGVAR(enabled), false)]) && (player == commander _target))];
+private _enableAction = [QGVAR(enable), "Enable Protection", "", {
+	params ["_target", "", ""];
+	_target setVariable [QGVAR(enabled), true, true];
+	[QGVAR(enablePFH), [_target]] call CBA_fnc_serverEvent;
+	//[{_this call FUNC(PFH)}, 0, [_target]] remoteExecCall ["CBA_fnc_addPerFrameHandler", 2];
+}, {
+	params ["_target", "_player", ""];
+	!(_target getVariable [QGVAR(enabled), false])
+	&& (_target getVariable [QGVAR(ammo), HARDKILL_CHARGES] > 0)
+	&& (_player == commander _target)
+}] call ace_interact_menu_fnc_createAction;
 
-	_tank addAction ["Disable Hardkill protection", {
-		params ["_target","","_id",""];
-		_target setVariable [QGVAR(enabled), false, true];
-	}, nil, 1.5, false, true, "", QUOTE( (_target getVariable [ARR_2(QQGVAR(enabled), false)]) && (player == commander _target))];
+private _disableAction = [QGVAR(disable), "Disable Protection", "", {
+	params ["_target", "", ""];
+	_target setVariable [QGVAR(enabled), false, true];
+}, {
+	params ["_target", "_player", ""];
+	(_target getVariable [QGVAR(enabled), false]) && (_player == commander _target)
+}] call ace_interact_menu_fnc_createAction;
 
-}, true, [], true] call CBA_fnc_addClassEventHandler;
+private _checkAmmoAction = [QGVAR(checkAmmo), "Check Remaining Charges", "", {
+	params ["_target", "", ""];
+	hint format ["%1 charges remaining.", _target getVariable [QGVAR(ammo),10]];
+}, {
+	params ["_target", "_player", ""];
+	_player == commander _target
+}] call ace_interact_menu_fnc_createAction;
+
+["MBT_01_base_f", 1, ["ACE_SelfActions"], _rootAction, true] call ace_interact_menu_fnc_addActionToClass;
+["MBT_01_base_f", 1, ["ACE_SelfActions", QGVAR(root)], _enableAction, true] call ace_interact_menu_fnc_addActionToClass;
+["MBT_01_base_f", 1, ["ACE_SelfActions", QGVAR(root)], _disableAction, true] call ace_interact_menu_fnc_addActionToClass;
+["MBT_01_base_f", 1, ["ACE_SelfActions", QGVAR(root)], _checkAmmoAction, true] call ace_interact_menu_fnc_addActionToClass;
