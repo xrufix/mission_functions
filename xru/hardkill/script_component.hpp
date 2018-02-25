@@ -1,4 +1,4 @@
 #define COMPONENT hardkill
 #include "..\script_component.hpp"
 
-#define HARDKILL_CHARGES 10
+#define DEFAULT_CHARGES 10

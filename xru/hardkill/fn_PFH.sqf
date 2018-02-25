@@ -21,7 +21,7 @@ params ["_args", "_handle"];
 _args params ["_tank"];
 
 // Exit the PFH if ammo is empty or system was disabled.
-if (_tank getVariable [QGVAR(ammo), HARDKILL_CHARGES] <= 0) exitWith {
+if (_tank getVariable [QGVAR(ammo), DEFAULT_CHARGES] <= 0) exitWith {
 	_handle call CBA_fnc_removePerFrameHandler;
 	_tank setVariable [QGVAR(enabled), false, true];
 };
@@ -37,7 +37,7 @@ _projectiles append (_tank nearObjects ["RocketBase", 5]);
 if (count _projectiles >= 1) then {
 	private _target = selectRandom _projectiles;
 
-	_tank setVariable [QGVAR(ammo), (_tank getVariable [QGVAR(ammo), HARDKILL_CHARGES]) - 1, true];
+	_tank setVariable [QGVAR(ammo), (_tank getVariable [QGVAR(ammo), DEFAULT_CHARGES]) - 1, true];
 	if (random 1 < 0.2) exitWith {};
 	private _explosion = "SmallSecondary" createVehicle getPos _target;
 	deleteVehicle _target;
