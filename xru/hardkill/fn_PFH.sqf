@@ -17,7 +17,7 @@
  */
 #include "script_component.hpp"
 
-params ["_args","_handle"];
+params ["_args", "_handle"];
 _args params ["_tank"];
 
 // Exit the PFH if ammo is empty or system was disabled.
