@@ -28,6 +28,8 @@ if (_tank getVariable [QGVAR(ammo), DEFAULT_CHARGES] <= 0) exitWith {
 if !(_tank getVariable [QGVAR(enabled), false]) exitWith {
 	_handle call CBA_fnc_removePerFrameHandler;
 };
+// Do nothing while reloading.
+if (_tank getVariable [QGVAR(reloading), false]) exitWith {};
 
 private _pos = (position _tank) vectorAdd (_tank selectionPosition "vez");
 
@@ -44,6 +46,6 @@ if (count _projectiles >= 1) then {
 	deleteVehicle _target;
 
 	// Remove this PFH and add it again after 2 second reload time.
-	_handle call CBA_fnc_removePerFrameHandler;
-	[CBA_fnc_addPerFrameHandler, [{_this call FUNC(PFH)}, 0, [_tank]], 2] call CBA_fnc_waitAndExecute;
+	_tank setVariable [QGVAR(reloading), true];
+	[{params ["_tank"], _tank setVariable [QGVAR(reloading), false]}, [_tank], 2] call CBA_fnc_waitAndExecute;
 };

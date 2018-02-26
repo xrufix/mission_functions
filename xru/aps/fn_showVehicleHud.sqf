@@ -17,6 +17,11 @@
  */
 #include "script_component.hpp"
 
+#define COLOR_WHITE		[1,1,1,0.75]
+#define COLOR_GREEN		[0,1,0,0.75]
+#define COLOR_ORANGE	[1,0.55,0,0.75]
+#define COLOR_RED		[1,0,0,0.75]
+
 params ["_player"];
 
 private _enabled = false;
@@ -47,12 +52,28 @@ GVAR(hudPfId) = [{
 	private _ctrlGroup = (uiNamespace getVariable [QGVAR(hud), displayNull]) displayCtrl 20;
 	_ctrlGroup ctrlShow true;
 
-	_ammo = _vehicle getVariable [QGVAR(ammo), 0];
-	_ctrlAmmo = (uiNamespace getVariable [QGVAR(hud), displayNull]) displayCtrl 22;
-	_ctrlAmmo ctrlSetText str _ammo;
-	_ctrlAmmo ctrlSetTextColor ([[1,0,0,0.75],[1,1,1,0.75]] select (_ammo > 0));
+	private _active = _vehicle getVariable [QGVAR(enabled), false];
+	private _reloading = _vehicle getVariable [QGVAR(reloading), false];
+	private _ammo = _vehicle getVariable [QGVAR(ammo), 0];
+	private _colorIcon = switch true do {
+		case (_active && _reloading) : {COLOR_ORANGE};
+		case (_active && !_reloading) : {COLOR_GREEN};
+		default {COLOR_RED}; 
+	};
+	private _colorAmmo = switch true do {
+		case (!(_ammo > 0)) : {COLOR_RED};
+		case ((_ammo > 0) && _reloading) : {COLOR_ORANGE};
+		default {COLOR_WHITE};
+	};
 
-	_active = _vehicle getVariable [QGVAR(enabled), false];
-	_ctrlActive = (uiNamespace getVariable [QGVAR(hud), displayNull]) displayCtrl 23;
-	_ctrlActive ctrlSetTextColor ([[1,0,0,0.75],[0,1,0,0.75]] select _active);
+	private _ctrlText = (uiNamespace getVariable [QGVAR(hud), displayNull]) displayCtrl 21;
+	_ctrlText ctrlSetTextColor _colorAmmo;
+	
+	private _ctrlAmmo = (uiNamespace getVariable [QGVAR(hud), displayNull]) displayCtrl 22;
+	_ctrlAmmo ctrlSetText str _ammo;
+	_ctrlAmmo ctrlSetTextColor _colorAmmo;
+
+	private _ctrlActive = (uiNamespace getVariable [QGVAR(hud), displayNull]) displayCtrl 23;
+	_ctrlActive ctrlSetTextColor _colorIcon;
+
 }, 0.1, [_vehicle]] call CBA_fnc_addPerFrameHandler;
