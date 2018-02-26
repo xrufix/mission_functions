@@ -1485,4 +1485,4 @@ class RscControlsGroup
 	style = 16;
 };
 
-#include "hardkill\dialog.hpp"
+#include "hardkill\RscTitles.hpp"
