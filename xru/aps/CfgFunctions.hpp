@@ -1,6 +1,6 @@
 class xru_hardkill {
     class main {
-        file = "xru\hardkill";
+        file = "xru\aps";
         class activate {};
         class getHash {};
         class initClass {};

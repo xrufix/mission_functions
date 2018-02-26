@@ -1,6 +1,6 @@
 /*
  * Author: xrufix
- * Adds actions to commander to enable or disable the hardkill system, show the current state of it when on commander position.
+ * Initializes Event Handlers, HUD and classes.
  *
  * Arguments:
  * NONE

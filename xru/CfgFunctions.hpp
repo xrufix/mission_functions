@@ -2,7 +2,7 @@
 
 #include "ai\CfgFunctions.hpp"
 
-#include "hardkill\CfgFunctions.hpp"
+#include "aps\CfgFunctions.hpp"
 
 #include "misc\CfgFunctions.hpp"
 

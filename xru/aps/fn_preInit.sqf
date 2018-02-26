@@ -20,12 +20,12 @@ GVAR(hudPfId) = -1;
 
 // Create ACE-Interactions
 
-GVAR(interaction_root) = [QGVAR(interaction_root), "Hardkill System", "", {}, {
+GVAR(interaction_root) = [QGVAR(interaction_root), "APS", "", {}, {
 	params ["_target", "_player", ""];
 	true //(_player == commander _target)
 }] call ace_interact_menu_fnc_createAction;
 
-GVAR(interaction_enable) = [QGVAR(interaction_enable), "Enable Protection", "", {
+GVAR(interaction_enable) = [QGVAR(interaction_enable), "Engage", "", {
 	params ["_target", "", ""];
 	_target call FUNC(activate)
 }, {
@@ -36,7 +36,7 @@ GVAR(interaction_enable) = [QGVAR(interaction_enable), "Enable Protection", "", 
 	&& !(isTurnedOut _player)
 }] call ace_interact_menu_fnc_createAction;
 
-GVAR(interaction_disable) = [QGVAR(interaction_disable), "Disable Protection", "", {
+GVAR(interaction_disable) = [QGVAR(interaction_disable), "Disengage", "", {
 	params ["_target", "", ""];
 	_target setVariable [QGVAR(enabled), false, true];
 }, {
@@ -46,7 +46,7 @@ GVAR(interaction_disable) = [QGVAR(interaction_disable), "Disable Protection", "
 	&& !(isTurnedOut _player)
 }] call ace_interact_menu_fnc_createAction;
 
-GVAR(interaction_rearm) = [QGVAR(interaction_rearm), "Rearm Hardkill Systems", "", {
+GVAR(interaction_rearm) = [QGVAR(interaction_rearm), "Rearm APS", "", {
 	params ["_target", "", ""];
 	_target setVariable [QGVAR(ammo), [_target, 1] call FUNC(getHash), true];
 }, {
