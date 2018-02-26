@@ -16,7 +16,7 @@
 #include "script_component.hpp"
 
 GVAR(classHash) = [];
-
+GVAR(hudPfId) = -1;
 
 // Create ACE-Interactions
 
@@ -33,6 +33,7 @@ GVAR(interaction_enable) = [QGVAR(interaction_enable), "Enable Protection", "", 
 	!(_target getVariable [QGVAR(enabled), false])
 	&& (_target getVariable [QGVAR(ammo), DEFAULT_CHARGES] > 0)
 	&& (_player == commander _target)
+	&& !(isTurnedOut _player)
 }] call ace_interact_menu_fnc_createAction;
 
 GVAR(interaction_disable) = [QGVAR(interaction_disable), "Disable Protection", "", {
@@ -40,13 +41,16 @@ GVAR(interaction_disable) = [QGVAR(interaction_disable), "Disable Protection", "
 	_target setVariable [QGVAR(enabled), false, true];
 }, {
 	params ["_target", "_player", ""];
-	(_target getVariable [QGVAR(enabled), false]) && (_player == commander _target)
+	(_target getVariable [QGVAR(enabled), false])
+	&& (_player == commander _target)
+	&& !(isTurnedOut _player)
 }] call ace_interact_menu_fnc_createAction;
 
-GVAR(interaction_checkAmmo) = [QGVAR(interaction_checkAmmo), "Check Remaining Charges", "", {
+GVAR(interaction_rearm) = [QGVAR(interaction_rearm), "Rearm Hardkill Systems", "", {
 	params ["_target", "", ""];
-	hint format ["%1 charges remaining.", _target getVariable [QGVAR(ammo),10]];
+	_target setVariable [QGVAR(ammo), [_target, 1] call FUNC(getHash), true];
 }, {
-	params ["_target", "_player", ""];
-	_player == commander _target
+	params ["_target", "", ""];
+	private _vehicles = (_target nearObjects ["all", 20]) select {(typeOf _x) in ace_rearm_configTypesAdded};
+	(count _vehicles > 0) && ((_target getVariable [QGVAR(ammo), 0]) < ([_target, 1] call FUNC(getHash)))
 }] call ace_interact_menu_fnc_createAction;

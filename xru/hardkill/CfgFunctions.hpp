@@ -2,6 +2,7 @@ class xru_hardkill {
     class main {
         file = "xru\hardkill";
         class activate {};
+        class getHash {};
         class initClass {};
         class initVehicle {};
         class PFH {};
@@ -11,5 +12,6 @@ class xru_hardkill {
         class preInit {
             preInit = 1;
         };
+        class showVehicleHud {};
     };
 };

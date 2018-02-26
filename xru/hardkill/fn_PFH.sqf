@@ -29,16 +29,17 @@ if !(_tank getVariable [QGVAR(enabled), false]) exitWith {
 	_handle call CBA_fnc_removePerFrameHandler;
 };
 
+private _pos = (position _tank) vectorAdd (_tank selectionPosition "vez");
+
 // Detect incoming projectiles.
-private _projectiles = _tank nearObjects ["MissileBase", 5];
-_projectiles append (_tank nearObjects ["RocketBase", 5]);
+private _projectiles = _pos nearObjects ["MissileBase", 6];
+_projectiles append (_pos nearObjects ["RocketBase", 6]);
 
 // Delete incomming projectile and create destruction effect.
 if (count _projectiles >= 1) then {
 	private _target = selectRandom _projectiles;
 
 	_tank setVariable [QGVAR(ammo), (_tank getVariable [QGVAR(ammo), DEFAULT_CHARGES]) - 1, true];
-	if (random 1 < 0.2) exitWith {};
 	private _explosion = "SmallSecondary" createVehicle getPos _target;
 	deleteVehicle _target;
 

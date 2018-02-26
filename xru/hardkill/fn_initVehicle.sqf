@@ -30,7 +30,7 @@ if (_addActions && !(_vehicle getVariable [QGVAR(initialised), false])) then {
     [_vehicle, 1, ["ACE_SelfActions"], GVAR(interaction_root)] call ace_interact_menu_fnc_addActionToObject;
     [_vehicle, 1, ["ACE_SelfActions", QGVAR(interaction_root)], GVAR(interaction_enable)] call ace_interact_menu_fnc_addActionToObject;
     [_vehicle, 1, ["ACE_SelfActions", QGVAR(interaction_root)], GVAR(interaction_disable)] call ace_interact_menu_fnc_addActionToObject;
-    [_vehicle, 1, ["ACE_SelfActions", QGVAR(interaction_root)], GVAR(interaction_checkAmmo)] call ace_interact_menu_fnc_addActionToObject;
+    [_vehicle, 0, ["ACE_MainActions"], GVAR(interaction_rearm)] call ace_interact_menu_fnc_addActionToObject;
 };
 
 _vehicle setVariable [QGVAR(initialised), true, true];
