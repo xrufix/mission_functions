@@ -1,4 +1,4 @@
-class xru_hardkill {
+class xru_aps {
     class main {
         file = "xru\aps";
         class activate {};
