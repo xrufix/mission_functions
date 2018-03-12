@@ -5,6 +5,9 @@ class xru_ai {
         class removeMapsFromAI {
             postInit = 1;
         };
-        // class skill {};
+        class skill {
+            postInit = 1;
+        };
+        class suppressArea {};
     };
 };
