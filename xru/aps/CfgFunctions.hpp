@@ -2,6 +2,7 @@ class xru_aps {
     class main {
         file = "xru\aps";
         class activate {};
+        class firedEH {};
         class getHash {};
         class initClass {};
         class initVehicle {};

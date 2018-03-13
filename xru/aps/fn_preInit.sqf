@@ -15,8 +15,15 @@
  */
 #include "script_component.hpp"
 
+// Init GVARs
 GVAR(classHash) = [];
+GVAR(trackedProjectiles) = [];
 GVAR(hudPfId) = -1;
+
+// Create CBA EventHandlers
+[QGVAR(enablePFH), {
+	[{_this call FUNC(PFH)}, 0, _this] call CBA_fnc_addPerFrameHandler; 
+}] call CBA_fnc_addEventHandler;
 
 // Create ACE-Interactions
 
@@ -27,7 +34,7 @@ GVAR(interaction_root) = [QGVAR(interaction_root), "APS", "", {}, {
 
 GVAR(interaction_enable) = [QGVAR(interaction_enable), "Engage", "", {
 	params ["_target", "", ""];
-	_target call FUNC(activate)
+	_target call FUNC(activate);
 }, {
 	params ["_target", "_player", ""];
 	!(_target getVariable [QGVAR(enabled), false])
@@ -38,7 +45,7 @@ GVAR(interaction_enable) = [QGVAR(interaction_enable), "Engage", "", {
 
 GVAR(interaction_disable) = [QGVAR(interaction_disable), "Disengage", "", {
 	params ["_target", "", ""];
-	_target setVariable [QGVAR(enabled), false, true];
+	[_target, false] call FUNC(activate);
 }, {
 	params ["_target", "_player", ""];
 	(_target getVariable [QGVAR(enabled), false])

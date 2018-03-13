@@ -15,11 +15,8 @@
  */
 #include "script_component.hpp"
 
-// Create CBA EventHandlers
-
-[QGVAR(enablePFH), {
-	[{_this call FUNC(PFH)}, 0, _this] call CBA_fnc_addPerFrameHandler; 
-}] call CBA_fnc_addEventHandler;
+// Add Fired EventHandler to all units.
+["All", "fired", {_this call FUNC(firedEH)}] call CBA_fnc_addClassEventHandler;
 
 // Add Hud to vehicles. Uses code from ACE3.
 ["turret", {_this call FUNC(showVehicleHud)}, false] call CBA_fnc_addPlayerEventHandler;
@@ -38,7 +35,7 @@
 // Custom settings from description.ext
 private _config = getArray (missionConfigFile >> "xru_hardkill");
 {_x call FUNC(initClass)} forEach _config;
-// Default settings (wont apply if class was initialised before)
+// Default settings (won't apply if class was initialised before)
 {_x call FUNC(initClass)} forEach [
 	["B_MBT_01_base_F", 12, true, true],
 	["I_MBT_03_cannon_F", 12, true, false]

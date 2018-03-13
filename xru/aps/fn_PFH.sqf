@@ -20,6 +20,9 @@
 params ["_args", "_handle"];
 _args params ["_tank"];
 
+// Exit if no Projectiles are tracked.
+if (count GVAR(trackedProjectiles) < 1) exitWith {};
+
 // Exit the PFH if ammo is empty or system was disabled.
 if (_tank getVariable [QGVAR(ammo), DEFAULT_CHARGES] <= 0) exitWith {
 	_handle call CBA_fnc_removePerFrameHandler;
@@ -34,18 +37,18 @@ if (_tank getVariable [QGVAR(reloading), false]) exitWith {};
 private _pos = (position _tank) vectorAdd (_tank selectionPosition "vez");
 
 // Detect incoming projectiles.
-private _projectiles = _pos nearObjects ["MissileBase", 6];
-_projectiles append (_pos nearObjects ["RocketBase", 6]);
+GVAR(trackedProjectiles) = GVAR(trackedProjectiles) select {!(isNull (_x select 0))};
+private _threats = GVAR(trackedProjectiles) select {_tank != (_x select 1)};
+if (count _threats < 1) exitWith {};
+_threats = _threats select {((_x select 0) distance _pos) < 6};
+if (count _threats < 1) exitWith {};
+_projectile = _threats select 0 select 0;
 
 // Delete incomming projectile and create destruction effect.
-if (count _projectiles >= 1) then {
-	private _target = selectRandom _projectiles;
+_tank setVariable [QGVAR(ammo), (_tank getVariable [QGVAR(ammo), DEFAULT_CHARGES]) - 1, true];
+private _explosion = "SmallSecondary" createVehicle getPos _projectile;
+deleteVehicle _projectile;
 
-	_tank setVariable [QGVAR(ammo), (_tank getVariable [QGVAR(ammo), DEFAULT_CHARGES]) - 1, true];
-	private _explosion = "SmallSecondary" createVehicle getPos _target;
-	deleteVehicle _target;
-
-	// Remove this PFH and add it again after 2 second reload time.
-	_tank setVariable [QGVAR(reloading), true];
-	[{params ["_tank"], _tank setVariable [QGVAR(reloading), false]}, [_tank], 2] call CBA_fnc_waitAndExecute;
-};
+// Set reloading state and remove it again after pause.
+_tank setVariable [QGVAR(reloading), true, true];
+[{params ["_tank"], _tank setVariable [QGVAR(reloading), false, true]}, [_tank], 2] call CBA_fnc_waitAndExecute;
