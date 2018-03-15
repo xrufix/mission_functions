@@ -20,14 +20,15 @@
 
 params [["_classname", "", [""]], ["_ammo", 10, [1]], ["_activate", true, [true]], ["_inherit", true, [true]]];
 
-if (([_classname] call FUNC(getHash)) isEqualType []) exitWith {
+if (!isNil {[_classname] call FUNC(getHash)}) exitWith {
     private _warning = format ["Class %1 already initialised, ignoring", _classname];
     WARNING(_warning);
     #ifdef DIAG_MODE_FULL
         hint _warning;
     #endif
 };
-GVAR(classHash) pushBack [_classname, _ammo, _activate, _inherit];
+
+GVAR(classHash) setVariable [_className, [_ammo, _activate, _inherit]];
 
 [_classname, 1, ["ACE_SelfActions"], GVAR(interaction_root), _inherit] call ace_interact_menu_fnc_addActionToClass;
 [_classname, 1, ["ACE_SelfActions", QGVAR(interaction_root)], GVAR(interaction_enable), _inherit] call ace_interact_menu_fnc_addActionToClass;
