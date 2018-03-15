@@ -19,16 +19,16 @@
 params [["_class", "", ["", objNull]], ["_index", -1, [1]]];
 
 if (_class isEqualType objNull) then {
-	_class = typeOf _class
+	_class = tolower (typeOf _class);
 };
 
 private _hash = GVAR(classHash) getVariable [_class, 0];
 
 if (_hash isEqualTo 0) then {
-	private _parents = [(configFile >> "CfgVehicles" >> _class), true] call BIS_fnc_returnParents;
+	private _parents = ([(configFile >> "CfgVehicles" >> _class), true] call BIS_fnc_returnParents) apply {tolower _x};
 	_hash = {
 		private _currentHash = GVAR(classHash) getVariable [_x, 0];
-		if (_currentHash isEqualTo 0) exitWith {_currentHash};
+		if (!(_currentHash isEqualTo 0)) exitWith {_currentHash};
 	} count _parents;
 };
 
