@@ -8,7 +8,7 @@
  * Return Value:
  * NONE
  *
- * Example: [] call xru_hardkill_fnc_preInit
+ * Example: [] call xru_aps_fnc_preInit
  *
  * Public: No 
  *

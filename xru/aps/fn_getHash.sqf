@@ -9,7 +9,7 @@
  * Return Value:
  * Array (classname, ammo count, activation, inheritance) or false (when class name was not found or index is wrong) or classname/ammo count/activation/inheritance.
  *
- * Example: ["my_tank_class"] call xru_hardkill_fnc_getHash
+ * Example: ["my_tank_class"] call xru_aps_fnc_getHash
  *
  * Public: No
  *

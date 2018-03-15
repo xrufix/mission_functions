@@ -8,7 +8,7 @@
  * Return Value:
  * NONE
  *
- * Example: [] call xru_hardkill_fnc_postInit
+ * Example: [] call xru_aps_fnc_postInit
  *
  * Public: No 
  *
@@ -33,7 +33,7 @@
 
 // Initialize classes
 // Custom settings from description.ext
-private _config = getArray (missionConfigFile >> "xru_hardkill");
+private _config = getArray (missionConfigFile >> "xru_aps");
 {_x call FUNC(initClass)} forEach _config;
 // Default settings (won't apply if class was initialised before)
 {_x call FUNC(initClass)} forEach [
