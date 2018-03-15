@@ -38,8 +38,8 @@ GVAR(classHash) setVariable [_className, [_ammo, _activate, _inherit]];
 if (isServer) then {
     [_classname, "initpost", {
         params ["_vehicle"];
-        private _args = [_vehicle] call FUNC(getHash);
-        _args params ["_ammo", "_activate", ""];
+        private _hash = [_vehicle] call FUNC(getHash);
+        _hash params ["_ammo", "_activate", ""];
 
         #ifdef DEBUG_MODE_FULL
             (format ["Init Class %1 - init %2: _ammo = %3; _activate = %4", typeOf _vehicle, _vehicle, _ammo, _activate]) remoteExec ["hint"];
