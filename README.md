@@ -6,9 +6,7 @@ Standard mission functions for Arma 3.
 ### Includes the following components:
 * **Addons**: Enable / disable mods features' from multiplayer lobby.
 * **AI**: Give AI units custom loadouts using BaerMitUmlaut's Poppy.
-* **APS**: Active Protection System for tanks and other vehicles.
 * **Misc**: Various functions that should be present in every Mission.
-* **Suppress**: Simulated suppression effects on players, both visual and physical.
 
 ### How to use:
 1. Copy the folder `xru` into your mission folder root.
