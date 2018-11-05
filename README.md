@@ -34,10 +34,6 @@ class CfgFunctions {
 class params {
     #include "xru\params.hpp"
 };
-
-class RscTitles {
-    #include "xru\RscTitles.hpp"
-};
 ```
 
 ## Deutsch
@@ -72,9 +68,5 @@ class CfgFunctions {
 
 class params {
     #include "xru\params.hpp"
-};
-
-class RscTitles {
-    #include "xru\RscTitles.hpp"
 };
 ```
