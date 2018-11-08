@@ -12,7 +12,6 @@ Standard mission functions for Arma 3.
 1. Copy the folder `xru` into your mission folder root.
 2. Include `xru\CfgFunctions.hpp` in your `description.ext`'s CfgFunctions-class.
 2. Include `xru\params.hpp` in your `description.ext`'s params-class.
-3. Include `xru\RscTitles.hpp` in your `description.ext`'s RscTitles-class.
 
 If you want to use only part of the package, comment out the includes inside the above mentioned files and delte the respecting folders. Only deleting the folders will make your game crash!
 
@@ -43,11 +42,10 @@ class params {
 * **Misc**: Verschiedene Funktionen, die in einer Mission nützlich sind.
 * **Suppress**: Simuliert Unterdrückungseffekte bei Spielern, sowohl visuell als auch physisch.
 
-### How to use:
+### Anleitung:
 1. Kopiere den Ordner `xru` in dein Missionsverzeichnis.
 2. Inkludiere die Datei `xru\CfgFunctions.hpp` in die CfgFunctions-Klasse deiner `description.ext`.
 2. Inkludiere die Datei `xru\params.hpp` in die params-Klasse deiner `description.ext`.
-3. Inkludiere die Datei `xru\RscTitles.hpp` in die RscTitles-Klasse deiner `description.ext`.
 
 Wenn du nur manche Teile des Paketes nutzen willst, kommentiere die Includes innerhalb der oben genannten Dateien aus und lösche die entsprechenden Ordner. Die Ordner nur zu löschen wird das Spiel abstürzen lassen!
 
