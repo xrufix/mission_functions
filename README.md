@@ -4,8 +4,9 @@ Standard mission functions for Arma 3.
 ## English
 
 ### Includes the following components:
-* **Addons**: Enable / disable mods features' from multiplayer lobby.
-* **AI**: Give AI units custom loadouts using BaerMitUmlaut's Poppy.
+* **Addons**: Set some mod specific standards.
+* **AI**: Improve AI detection and sharing of players.
+* **doSuppress**: Let's AI Units suppress target positions or players inside an area.
 * **Misc**: Various functions that should be present in every Mission.
 
 ### How to use:
@@ -36,11 +37,10 @@ class params {
 ## Deutsch
 
 ### Enthaltene Komponenten:
-* **Addons**: Features bestimmter Mods in der Multiplayerlobby deaktivieren oder aktivieren.
-* **AI**: KI-Loadouts und Schwierigkeit anpassen (erfordert BaerMitUmlaut's Poppy).
-* **APS**: Aktive Schutzmaßnahmen für Panzer und Fahrzeuge.
+* **Addons**: Einige modspezifische Standardeinstellungen.
+* **AI**: Verbessert Erkennung von Spielern und Teilen von Informationen durch KI.
+* **doSuppress**: Lässt KI ein Gebiet oder Spieler innerhalb eines Gebiets unterdrücken.
 * **Misc**: Verschiedene Funktionen, die in einer Mission nützlich sind.
-* **Suppress**: Simuliert Unterdrückungseffekte bei Spielern, sowohl visuell als auch physisch.
 
 ### Anleitung:
 1. Kopiere den Ordner `xru` in dein Missionsverzeichnis.
